@@ -1,0 +1,171 @@
+:root {
+    --ash-color: #b0b0b0;
+    --deep-black: #050505;
+    --soft-black: #0d0d0d;
+}
+
+body {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 245, 255, 0.2);
+}
+
+/* Animations */
+@keyframes wave {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.wave-motion {
+    animation: wave 4s linear infinite;
+}
+
+@keyframes glow {
+
+    0%,
+    100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    50% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+}
+
+.glow-text {
+    animation: glow 3s ease-in-out infinite;
+}
+
+/* Chat Bubbles */
+.message-bubble {
+    max-width: 90%;
+    width: fit-content;
+    padding: 0.75rem 1rem;
+    border-radius: 1.25rem;
+    position: relative;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    animation: slideUp 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@media (min-width: 768px) {
+    .message-bubble {
+        max-width: 80%;
+        padding: 1rem 1.25rem;
+        border-radius: 1.5rem;
+        font-size: 0.95rem;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.user-message {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    align-self: flex-end;
+    border-bottom-right-radius: 0.5rem;
+    margin-left: auto;
+}
+
+.ai-message {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    align-self: flex-start;
+    border-bottom-left-radius: 0.5rem;
+    color: #d1d5db;
+}
+
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background-color: #9ca3af;
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Sidebar Toggle State */
+aside.collapsed {
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    border-right-width: 0;
+}
+
+/* Particle Canvas Stylings */
+#particleCanvas {
+    opacity: 0.4;
+    filter: blur(1px);
+}
+
+/* Glassmorphism hover */
+.glass-hover:hover {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+/* Auth Modal */
+#authModal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#authModal.active>div {
+    transform: scale(1);
+}
+
+@keyframes pulse-white {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+    }
+}
+
+#freeOfferBtn {
+    animation: pulse-white 3s infinite;
+}
