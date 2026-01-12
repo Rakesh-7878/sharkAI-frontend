@@ -20,3 +20,5 @@ The Next Generation AI Model.
 - Font Awesome
 - FastAPI
 - Supabase
+## main mind
+-Rakesh Thangella
