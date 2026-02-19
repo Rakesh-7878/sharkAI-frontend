@@ -59,6 +59,43 @@ body {
     animation: glow 3s ease-in-out infinite;
 }
 
+@keyframes logo-pulse {
+
+    0%,
+    100% {
+        transform: scale(0.95);
+        filter: brightness(0.8) drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+    }
+
+    50% {
+        transform: scale(1.05);
+        filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+    }
+}
+
+.animate-logo-pulse {
+    animation: logo-pulse 2s ease-in-out infinite;
+}
+
+@keyframes loader-slide {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.animate-loader-slide {
+    animation: loader-slide 2s ease-in-out infinite;
+}
+
+.preloader-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
 /* Chat Bubbles */
 .message-bubble {
     max-width: 90%;
@@ -142,6 +179,18 @@ aside.collapsed {
 .glass-hover:hover {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
+}
+
+/* Snappy Interactions */
+button:active,
+.cursor-pointer:active,
+#authTrigger:active {
+    transform: scale(0.95);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#userInput:focus {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
 /* Auth Modal */

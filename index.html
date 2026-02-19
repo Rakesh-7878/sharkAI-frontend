@@ -208,6 +208,27 @@
 
 <body class="bg-[#050505] text-gray-300 font-['Inter'] overflow-hidden h-screen flex">
 
+    <!-- Professional Preloader -->
+    <div id="preloader"
+        class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505] transition-opacity duration-300">
+        <div class="relative w-24 h-24 mb-6">
+            <div class="absolute inset-0 rounded-2xl bg-white/5 border border-white/10 animate-pulse"></div>
+            <img src="image/shark-logo.jpg" alt="SHARK AI Logo"
+                class="w-full h-full object-cover rounded-2xl animate-logo-pulse">
+            <div class="absolute -inset-4 bg-white/5 blur-2xl rounded-full opacity-20 animate-pulse"></div>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+            <h2 class="text-xl font-['Space_Grotesk'] font-bold tracking-widest text-white uppercase">SHARK AI</h2>
+            <div id="loaderStatus" class="text-[10px] text-gray-500 font-medium tracking-[0.3em] uppercase">Syncing
+                Neural Streams...</div>
+            <div class="w-48 h-[2px] bg-white/5 rounded-full mt-4 overflow-hidden">
+                <div id="loaderBar"
+                    class="h-full bg-gradient-to-r from-transparent via-blue-500 to-transparent w-full -translate-x-full animate-loader-slide">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Particle Background -->
     <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
 

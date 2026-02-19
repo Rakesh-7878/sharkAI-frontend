@@ -88,6 +88,78 @@ function animate() {
 initParticles();
 animate();
 
+// Preloader Logic
+const preloader = document.getElementById('preloader');
+const loaderStatus = document.getElementById('loaderStatus');
+const loaderBar = document.getElementById('loaderBar');
+
+async function pingBackend() {
+    const endpoint = "https://sharkai.onrender.com/ask";
+    const startTime = Date.now();
+    const timeout = 30000; // 30 seconds max wait for cold start
+
+    loaderStatus.textContent = "Connecting to Neural Core...";
+
+    // Attempt to ping the backend
+    try {
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), 10000); // 10s timeout for individual ping
+
+        const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question: "ping" }),
+            signal: controller.signal
+        });
+
+        clearTimeout(id);
+        return true;
+    } catch (error) {
+        console.log("Backend cold start or unreachable, retrying...", error);
+        return false;
+    }
+}
+
+async function handleLoader() {
+    const minShowTime = 800; // Snappier feel
+    const startTime = Date.now();
+
+    // Check backend status
+    let isBackendReady = false;
+    let attempts = 0;
+    const maxAttempts = 3;
+
+    while (!isBackendReady && attempts < maxAttempts) {
+        isBackendReady = await pingBackend();
+        if (!isBackendReady) {
+            attempts++;
+            if (attempts < maxAttempts) {
+                loaderStatus.textContent = `Waking Engine (Attempt ${attempts + 1})...`;
+                await new Promise(r => setTimeout(r, 2000));
+            }
+        }
+    }
+
+    if (isBackendReady) {
+        loaderStatus.textContent = "Neural Links Established";
+    } else {
+        loaderStatus.textContent = "Minimal Mode Active";
+    }
+
+    const elapsed = Date.now() - startTime;
+    const remaining = Math.max(0, minShowTime - elapsed);
+
+    setTimeout(() => {
+        preloader.classList.add('preloader-hidden');
+        document.body.classList.remove('overflow-hidden');
+        // Remove preloader from DOM after transition
+        setTimeout(() => preloader.remove(), 1000);
+    }, remaining);
+}
+
+// Start preloader handling immediately
+handleLoader();
+
 // Chat Core Logic
 const chatHistory = document.getElementById('chatHistory');
 const userInput = document.getElementById('userInput');
@@ -163,7 +235,7 @@ async function addMessage(text, isUser = false) {
             if (!isGenerating) break; // STOP if interrupted
             contentSpan.textContent += text[i];
             chatHistory.scrollTop = chatHistory.scrollHeight;
-            await new Promise(r => setTimeout(r, 20 + Math.random() * 30));
+            await new Promise(r => setTimeout(r, 10 + Math.random() * 15));
         }
         cursor.remove();
 
